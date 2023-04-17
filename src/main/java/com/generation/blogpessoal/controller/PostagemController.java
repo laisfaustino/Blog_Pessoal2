@@ -79,6 +79,7 @@ public class PostagemController {
 	}
 			//@Valid valida o objeto
 			// pegar um objeto da classe postagem
+			//Mandar um corpo de requisição na postagem (Atributo Postagem é transformado em objeto postagem dentro de controller para ser usado aqui
 			/* INSERT INTO tb_postagens (titulo, texto)
 			 * VALUES ("Postagem 03","Texto da postagem 03")
 			 * Usa-se o método status porque estou mexendo no corpo da requisição */
