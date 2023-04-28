@@ -41,7 +41,11 @@ public class Postagem {
 	@JsonIgnoreProperties("postagem")
 	private Tema tema; //Foi colocado um objeto da classe tema
 	
+	@ManyToOne
+	@JsonIgnoreProperties("postagem")
+	private Usuario usuario;
 	
+
 	public Long getId() {
 		return id;
 	}
@@ -92,7 +96,14 @@ public class Postagem {
 	}
 	
 	
-	
+	public Usuario getUsuario() {
+		return usuario;
+	}
+
+
+	public void setUsuario(Usuario usuario) {
+		this.usuario = usuario;
+	}
 	
 	
 	

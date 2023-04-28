@@ -34,6 +34,7 @@ public class PostagemController {
 	  
 	@Autowired
 	private TemaRepository temaRepository;
+	
 	//Próximo passo é criar métodos do CRUD
 	
 	@GetMapping 
@@ -56,7 +57,7 @@ public class PostagemController {
 				.orElse(ResponseEntity.status(HttpStatus.NOT_FOUND).build());
 		
 		//SELECT * FROM tb_postagens WHERE id = ?;
-		// Precisa de optional, porque se o id não for encontrado, ele será nulo, e não é possível isso acontecer, se não acontece o erro NullPointer
+		// Precisa de optional, porque se o id não for encontrado, ele será nulo, e não é possível isso acontecer (caso aconteça, dá o erro NullPointer)
 	}
 	
 			/* Optional
@@ -76,8 +77,14 @@ public class PostagemController {
 	
 	@PostMapping
 	public ResponseEntity<Postagem> post(@Valid @RequestBody Postagem postagem) {
-		return ResponseEntity.status(HttpStatus.CREATED)
+		
+		if (temaRepository.existsById(postagem.getTema().getId()))
+			return ResponseEntity.status(HttpStatus.CREATED)
 				.body(postagemRepository.save(postagem));
+		
+		throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Tema não existe!", null);
+		
+		
 		
 	}
 			//@Valid valida o objeto
@@ -90,12 +97,17 @@ public class PostagemController {
 	@PutMapping
 	public ResponseEntity<Postagem> put(@Valid @RequestBody Postagem postagem) {
 		
-			return postagemRepository.findById(postagem.getId())
+		if (postagemRepository.existsById(postagem.getId())) {
+			
+			if (temaRepository.existsById(postagem.getTema().getId()))
+				return ResponseEntity.status(HttpStatus.OK)
+						.body(postagemRepository.save(postagem));
 					
-					.map(resposta -> ResponseEntity.status(HttpStatus.OK)
-						.body(postagemRepository.save(postagem)))
-						.orElse(ResponseEntity.status(HttpStatus.NOT_FOUND).build());
+			throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Tema não existe!", null);
+			
+		}
 		
+		return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
 	}
 	
 			/* UPDATE tb_postagens SET titulo = ?   */

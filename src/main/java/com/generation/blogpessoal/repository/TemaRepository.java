@@ -7,7 +7,7 @@ import org.springframework.data.repository.query.Param;
 
 import com.generation.blogpessoal.model.Tema;
 
-public interface TemaRepository extends JpaRepository<Tema, Long>{
+public interface TemaRepository extends JpaRepository<Tema, Long> {
 
 	List<Tema> findAllByDescricaoContainingIgnoreCase(@Param("descricao")String tema);
 	//Tema será puxado da classe model
