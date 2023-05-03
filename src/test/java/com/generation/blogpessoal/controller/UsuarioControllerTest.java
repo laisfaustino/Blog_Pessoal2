@@ -18,6 +18,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
 import com.generation.blogpessoal.model.Usuario;
+import com.generation.blogpessoal.model.UsuarioLogin;
 import com.generation.blogpessoal.repository.UsuarioRepository;
 import com.generation.blogpessoal.service.UsuarioService;
 
@@ -201,6 +202,23 @@ public class UsuarioControllerTest {
 	 
 	// long usuario = usuarioCadastrado.get().getId();
 	//+ usuarioCadastrado.get().getId().toString()
+	
+	@Test
+	@DisplayName("😃 Login do Usuário")
+	public void deveAutenticarUsuario() {
+
+		usuarioService.cadastrarUsuario(new Usuario(0L, 
+				"Luisinho da Silva Santos", "luisinhosilva_santos@email.com.br", "12345678", "-"));
+
+		HttpEntity<UsuarioLogin> corpoRequisicao = new HttpEntity<UsuarioLogin>(new UsuarioLogin(0L, 
+			"", "luisinhosilva_santos@email.com.br", "13465278", "", ""));
+
+		ResponseEntity<UsuarioLogin> corpoResposta = testRestTemplate
+			.exchange("/usuarios/logar", HttpMethod.POST, corpoRequisicao, UsuarioLogin.class);
+
+		assertEquals(HttpStatus.OK, corpoResposta.getStatusCode());
+
+	}
 	
 
 	
