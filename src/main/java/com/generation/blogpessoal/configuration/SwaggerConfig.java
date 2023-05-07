@@ -21,10 +21,10 @@ public class SwaggerConfig {
 				.info(new Info().title("Projeto Blog Pessoal").description("Projeto Blog Pessoal - Generation Brasil")
 						.version("v0.0.1")
 						.license(new License().name("Generation Brasil").url("https://brazil.generation.org/"))
-						.contact(new Contact().name("Brenda Ramos Bezerra").url("https://github.com/breramos")
-								.email("brendaramos.bezerra@gmail.com")))
+						.contact(new Contact().name("Lais Rodrigues Faustino Gomes").url("https://github.com/laisfaustino")
+								.email("laisfaustino@hotmail.com")))
 				.externalDocs(new ExternalDocumentation().description("Github")
-						.url("https://github.com/breramos/spring-blogpessoal"));
+						.url("https://github.com/laisfaustino/Blog_Pessoal2"));
 	}
 
 	@Bean
